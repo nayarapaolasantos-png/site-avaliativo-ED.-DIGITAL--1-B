@@ -1,0 +1,88 @@
+// 1. GESTÃO DE DADOS (Injeção Dinâmica)
+const especies = [
+    { nome: "Lótus Sagrado", desc: "Símbolo de pureza no Budismo." },
+    { nome: "Lótus Azul", desc: "Conhecido no Egito Antigo por suas propriedades." },
+    { nome: "Lótus Americano", desc: "Nativo da América do Norte, com flores amarelas." }
+];
+
+const renderizarEspecies = () => {
+    const container = document.getElementById('grid-especies');
+    container.innerHTML = especies.map(item => `
+        <article class="card" style="border: 1px solid var(--primary); padding: 15px; border-radius: var(--radius)">
+            <h3>${item.nome}</h3>
+            <p>${item.desc}</p>
+        </article>
+    `).join('');
+};
+
+// 2. ACESSIBILIDADE: TAMANHO DA FONTE
+let fontSize = 100; // percentual
+const changeFontSize = (type) => {
+    fontSize += (type === 'increase' ? 10 : -10);
+    document.documentElement.style.fontSize = `${fontSize}%`;
+};
+
+// 3. CONTRASTE
+const toggleContrast = () => {
+    document.body.classList.toggle('high-contrast');
+};
+
+// 4. SISTEMA DE ACORDEÃO (EXPANDABLES)
+const setupAccordion = () => {
+    const container = document.getElementById('accordion-container');
+    const dados = [
+        { titulo: "Resiliência", texto: "A lótus cresce no lodo mas permanece limpa." },
+        { titulo: "Espiritualidade", texto: "Representa a elevação do espírito humano." }
+    ];
+
+    container.innerHTML = dados.map(d => `
+        <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0">${d.titulo}</div>
+            <div class="accordion-content">${d.texto}</div>
+        </div>
+    `).join('');
+
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.parentElement.classList.toggle('open');
+        });
+    });
+};
+
+// 5. SCROLL REVEAL (INTERSECTION OBSERVER)
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.1 });
+
+// INICIALIZAÇÃO
+window.onload = () => {
+    renderizarEspecies();
+    setupAccordion();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+};// 1. GESTÃO DE DADOS (Injeção Dinâmica)
+const especies = [
+    { nome: "Lótus Sagrado (Nelumbo nucifera)", desc: "A espécie mais clássica, com tons de rosa e branco. É famosa por suas sementes que podem germinar após séculos." },
+    { nome: "Lótus Azul (Nymphaea caerulea)", desc: "Historicamente ligada ao Egito Antigo, simboliza o sol e o renascimento." },
+    { nome: "Lótus Americano (Nelumbo lutea)", desc: "Nativo das Américas, destaca-se por suas flores amarelas vibrantes e resistência a climas variados." },
+    { nome: "Lótus Anã", desc: "Uma variante menor, perfeita para jardins ornamentais e pequenos lagos artificiais." }
+];const setupAccordion = () => {
+    const container = document.getElementById('accordion-container');
+    const dados = [
+        { titulo: "O Efeito Lótus", texto: "As folhas da lótus são super-hidrofóbicas. Elas repelem água e sujeira, o que inspirou cientistas a criar tintas e tecidos autolimpantes." },
+        { titulo: "Ciclo de Vida Único", texto: "A flor abre-se ao amanhecer e fecha-se à noite, mergulhando na água. Este ciclo de 3 dias representa a ressurreição em diversas culturas." },
+        { titulo: "Resiliência na Lama", texto: "Ela floresce em águas lodosas e estagnadas, provando que a beleza pode emergir de ambientes adversos sem se contaminar." },
+        { titulo: "Sementes Milenares", texto: "Cientistas já conseguiram germinar sementes de lótus que ficaram dormentes por mais de 1.300 anos no leito de um lago seco." }
+    ];
+
+    // O restante do código da função permanece o mesmo...
+    container.innerHTML = dados.map(d => `
+        <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0">${d.titulo}</div>
+            <div class="accordion-content">${d.texto}</div>
+        </div>
+    `).join('');
+    
+    // ... (escutadores de evento)
+};
